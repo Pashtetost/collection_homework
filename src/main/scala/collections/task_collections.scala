@@ -16,7 +16,7 @@ object task_collections {
    *
    * **/
   def capitalizeIgnoringASCII(text: List[String]): List[String] = {
-    text.head +: text.drop(1).collect{
+    text.head +: text.tail.collect{
       case value if isASCIIString(value) =>
         value.toUpperCase
       case value => value.toLowerCase
@@ -58,10 +58,8 @@ object task_collections {
     text
       .split(" ")
       .toList
-      .collect{
-        case word if word.matches("[0-9]+") => numName.getOrElse(word,"")
-        case word => word
-      }.mkString(" ")
+      .map(word =>  numName.getOrElse(word, word))
+      .mkString(" ")
   }
 
   /**
